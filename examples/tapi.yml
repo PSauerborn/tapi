@@ -1,0 +1,11 @@
+name: Testing API
+endpoints:
+- name: addition
+  path: /add
+  method: POST
+  handler: y.execute_addition
+
+- name: subtraction
+  path: /subtract
+  method: GET
+  handler: y.execute_subtraction
