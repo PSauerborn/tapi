@@ -44,3 +44,6 @@ def execute_division(x: int, y: int) -> int:
     """
 
     return x / y
+
+
+NOT_A_FUNCTION = "some random value"

@@ -3,14 +3,14 @@ endpoints:
 - name: addition
   path: /add
   method: POST
-  handler: examples.example.execute_addition
+  handler: tests.cli.files.sample.execute_addition
 
 - name: subtraction
   path: /subtract
   method: GET
-  handler: examples.example.execute_subtraction
+  handler: tests.cli.files.sample.execute_subtraction
 
 - name: division
   path: /divide
   method: POST
-  handler: examples.example.execute_division
+  handler: tests.cli.files.sample.execute_division

@@ -20,6 +20,11 @@ ALLOWED_TYPES = [
     Literal,
 ]
 
+BASE_META = {
+    "tags": ["Base Endpoints"],
+    "response_class": JSONResponse,
+}
+
 ENDPOINT_META = {
     "tags": ["Function Endpoints"],
     "response_class": JSONResponse,

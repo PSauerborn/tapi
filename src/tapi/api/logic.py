@@ -44,8 +44,27 @@ def is_allowed_type(_type: Any) -> bool:
     # to ensure full integration with pydantic
     if inspect.isclass(_type) and issubclass(_type, BaseModel):
         return True
+    elif _type in ALLOWED_TYPES:
+        return True
 
-    return _type in ALLOWED_TYPES
+    # get underlying properties of type. non-container
+    # types (sets for instance) do not have this property
+    # and are not allowed
+    properties = getattr(_type, "__dict__", None)
+    if properties is None:
+        return False
+
+    # get arguments for container types (dicts, lists etc).
+    # if this is None, assume that type is basic and not
+    # in allowed types
+    arguments = properties.get("__args__")
+    if arguments is None:
+        return False
+
+    for arg in arguments:
+        if not is_allowed_type(arg):
+            return False
+    return True
 
 
 def validate_callable(func: Callable):

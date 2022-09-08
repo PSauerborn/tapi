@@ -12,7 +12,7 @@ from tapi.api.logic import (
     generate_output_model,
     replace_function_signature,
 )
-from tapi.api.constants import ENDPOINT_META
+from tapi.api.constants import ENDPOINT_META, BASE_META
 
 
 LOGGER = logging.getLogger("tapi.api")
@@ -125,6 +125,8 @@ class TapiBaseAPI(FastAPI):
         # of unhandled exceptions into JSON format
         self.exception_handler(Exception)(global_exception_handler)
         self.exception_handler(StarletteHTTPException)(http_exception_handler)
+
+        self.get("/health_check", **BASE_META)(health_check_handler)
 
     def add_endpoint(
         self,

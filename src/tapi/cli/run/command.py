@@ -1,4 +1,5 @@
 import importlib
+import inspect
 from typing import Callable
 
 import typer
@@ -16,6 +17,12 @@ from tapi.api.exceptions import (
 )
 
 
+class InvalidHandlerFunctionException(Exception):
+    """Exception raised when a non-function
+    object is passed as a handler for a tapi
+    endpoint"""
+
+
 def get_endpoint_handler(handler: str) -> Callable:
     """Function used to retrieve python function
     from target module
@@ -31,7 +38,11 @@ def get_endpoint_handler(handler: str) -> Callable:
     module_name = ".".join(module_comps)
     # import module and extract function
     module = importlib.import_module(module_name)
-    return getattr(module, func_name)
+
+    func = getattr(module, func_name)
+    if not inspect.isfunction(func):
+        raise InvalidHandlerFunctionException
+    return func
 
 
 def get_api_config(config_path: str) -> APIConfig:
@@ -94,6 +105,18 @@ def run_command(config_path: str = "tapi.yml"):
         print(
             "[bold red]ERROR:[/bold red]: Unable to generate API. Invalid function signature. "
             "Ensure that all arguments and return types are annotated with supported types"
+        )
+        raise typer.Exit()
+    except InvalidHandlerFunctionException:
+        print(
+            "[bold red]ERROR:[/bold red]: Unable to generate API. Provided handler(s) must "
+            "be valid python functions"
+        )
+        raise typer.Exit()
+    except ModuleNotFoundError:
+        print(
+            "[bold red]ERROR:[/bold red]: Unable to generate API. Provided handlers cannot "
+            "be imported"
         )
         raise typer.Exit()
 

@@ -30,7 +30,7 @@ def execute_subtraction(x: int, y: int) -> int:
     return x - y
 
 
-def execute_division(x: int, y: int) -> int:
+def execute_divide(x: int, y: int) -> int:
     """Example handler used to execute
     simple arithmetic division using
     two integers
