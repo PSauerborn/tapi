@@ -4,7 +4,10 @@ name: "release-pypi"
 on:
   push:
     tags: "v*"
-    branches: ["master"]
+    branches: ["master", "feature/ci"]
+
+env:
+  python_version: 3.8
 
 jobs:
   release:
@@ -28,7 +31,7 @@ jobs:
     - name: "Publish the package to PyPI repository"
       env:
         twine_username: ${{ secrets.TWINE_USERNAME }}
-        twine_passworc: ${{ secrets.TWINE_PASSWORD }}
+        twine_password: ${{ secrets.TWINE_PASSWORD }}
       run: |
         twine upload --verbose \
           --skip-existing \

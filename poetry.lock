@@ -124,6 +124,7 @@ python-versions = ">=3.6.3,<4.0.0"
 [package.dependencies]
 commonmark = ">=0.9.0,<0.10.0"
 pygments = ">=2.6.0,<3.0.0"
+typing-extensions = {version = ">=4.0.0,<5.0", markers = "python_version < \"3.9\""}
 
 [package.extras]
 jupyter = ["ipywidgets (>=7.5.1,<8.0.0)"]
@@ -193,8 +194,8 @@ standard = ["colorama (>=0.4)", "httptools (>=0.4.0)", "python-dotenv (>=0.13)",
 
 [metadata]
 lock-version = "1.1"
-python-versions = "^3.9"
-content-hash = "ecab72081afaa2f5141c950b807e5673c1b15e6c8df9f2489fcf4df8ddcdab78"
+python-versions = "^3.8"
+content-hash = "9fdc794a8bf7a02d021279bea203ed17169cd5a5b82505750cf7bda643919eef"
 
 [metadata.files]
 anyio = [
