@@ -4,7 +4,7 @@ name: "release-pypi"
 on:
   push:
     tags: "v*"
-    branches: ["master", "feature/ci"]
+    branches: ["master"]
 
 env:
   python_version: 3.8
