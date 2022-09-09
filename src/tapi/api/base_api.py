@@ -26,13 +26,17 @@ class APIMethod(str, Enum):
 
 def generate_get_endpoint(handler: Callable, name: str) -> Callable:
     """Function used to generate GET endpoint
-    from a python function
+    from a python function. An output model
+    is generated using pydantic, and the provided
+    handler is then wrapped in an async closure.
 
     Args:
-        handler (Callable): _description_
+        handler (Callable): python function to execute on request.
+        name (str): name of tapi endpoint. Used when generating
+        pydantic models.
 
     Returns:
-        Callable: _description_
+        Callable: async function to add to FastAPI instance
     """
 
     response_model = generate_output_model(handler, name)
@@ -53,13 +57,17 @@ def generate_get_endpoint(handler: Callable, name: str) -> Callable:
 
 def generate_post_endpoint(handler: Callable, name: str) -> Callable:
     """Function used to generate POST endpoint
-    from a given python function
+    from a python function. Input and output models
+    are generated using pydantic, and the provided
+    handler is then wrapped in an async closure.
 
     Args:
-        handler (Callable): _description_
+        handler (Callable): python function to execute on request.
+        name (str): name of tapi endpoint. Used when generating
+            pydantic models.
 
     Returns:
-        Callable: _description_
+        Callable: async function to add to FastAPI instance
     """
 
     request_body_model = generate_input_model(handler, name)
@@ -105,10 +113,9 @@ async def http_exception_handler(request, exc):
 async def health_check_handler() -> JSONResponse:
     """API handlers used to serve health
     check response.
-    Returns
-    -------
-    JSONResponse
-        JSON response containing success message
+
+    Returns:
+        JSONResponse: JSON response containing success message
     """
 
     content = {"http_code": status.HTTP_200_OK, "message": "Service is running"}

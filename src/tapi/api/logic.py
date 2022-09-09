@@ -12,15 +12,19 @@ from tapi.api.exceptions import (
 
 
 def replace_function_signature(func: Callable, target: Callable) -> Callable:
-    """Function used to replace calling
-    signature
+    """Function used to replace function
+    signature of a target function with
+    the signature of another function. This
+    ensures that wrapped execution functions
+    have the same signature as the functions
+    they are wrapping
 
     Args:
-        func (Callable): _description_
-        target (Callable): _description_
+        func (Callable): function with desired signature
+        target (Callable): function to modify
 
     Returns:
-        Callable: _description_
+        Callable: function with modified signature
     """
 
     signature = inspect.signature(func)
@@ -74,7 +78,7 @@ def validate_callable(func: Callable):
     valid
 
     Args:
-        func (Callable): _description_
+        func (Callable): tapi function to validate
     """
 
     # get all annotations that are not return types
@@ -110,10 +114,13 @@ def generate_input_model(func: Callable, name: str) -> BaseModel:
     model for a given function
 
     Args:
-        func (Callable): _description_
+        func (Callable): function to generate input
+            model for
+        name (str): name of endpoint. Used to name model
 
     Returns:
-        BaseModel: _description_
+        BaseModel: Pydantic data model containing fields
+            for input
     """
 
     validate_callable(func)
@@ -129,14 +136,17 @@ def generate_input_model(func: Callable, name: str) -> BaseModel:
 
 
 def generate_output_model(func: Callable, name: str) -> BaseModel:
-    """Function used to generate input pydantic
+    """Function used to generate output pydantic
     model for a given function
 
     Args:
-        func (Callable): _description_
+        func (Callable): function to generate output
+            model for
+        name (str): name of endpoint. Used to name model
 
     Returns:
-        BaseModel: _description_
+        BaseModel: Pydantic data model containing fields
+            for output
     """
 
     validate_callable(func)
