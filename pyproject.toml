@@ -1,9 +1,12 @@
 [tool.poetry]
-name = "tapi"
+name = "pytapi"
 version = "0.1.0"
-description = "Tecian no-code API framework. Create REST interfaces from YAML configs"
+description = "Python no-code API framework. Create REST interfaces from YAML configs"
 authors = ["PSauerborn <pascal.sauerborn@gmail.com>"]
 license = "MIT"
+packages = [
+    {include="tapi", from="src"},
+]
 
 [tool.poetry.dependencies]
 python = "^3.9"

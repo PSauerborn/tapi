@@ -1,0 +1,37 @@
+---
+name: "release-pypi"
+
+on:
+  push:
+    tags: "v*"
+    branches: ["master"]
+
+jobs:
+  release:
+    runs-on: "ubuntu-latest"
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        # get all tags (no shallow clone)
+        fetch-depth: 0
+
+    - uses: actions/setup-python@v2
+      with:
+        python-version: ${{ env.python_version }}
+        architecture: "x64"
+
+    - name: "Build the wheel file"
+      run: |
+        pip install -U pip && pip install poetry twine
+        poetry build
+
+    - name: "Publish the package to PyPI repository"
+      env:
+        twine_username: ${{ secrets.TWINE_USERNAME }}
+        twine_passworc: ${{ secrets.TWINE_PASSWORD }}
+      run: |
+        twine upload --verbose \
+          --skip-existing \
+          --username $twine_username \
+          --password $twine_password \
+          dist/*.whl

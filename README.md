@@ -6,7 +6,7 @@ Powered by `FastAPI` and `uvicorn`, `tapi` handles all the tedious tasks associa
 
 ### Installation
 
-`tapi` is set up using `poetry`. To install from source, clone the repository and install with `poetry install`. Verify that the installation has been successful using `python -m tapi --help`
+`tapi` can be installed from PyPI using `pip install pytapi`. Alternatively, `tapi` is set up using `poetry`. To install from source, just clone the repository and install with `poetry install`. Verify that the installation has been successful using `python -m tapi --help`
 
 ### Example Usage
 
